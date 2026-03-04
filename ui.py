@@ -6,22 +6,24 @@ class VIEW3D_PT_TextureCycle(bpy.types.Panel):
     bl_idname = "VIEW3D_PT_texture_cycle"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
-    bl_category = 'Texture Cycle' # This is the name of the vertcal tab on the sidebar
+    bl_category = 'Texture Cycle' # This is the name of the vertical tab on the sidebar
 
     def draw(self, context):
         layout = self.layout
-        scene = context.scene
+        scene = context.scene.texture_cycle_data
         
         col = layout.column(align=True)
+        
         col.label(text="Cycle Actions:")
         
-        # Placeholders for the Cycle and Restore Operators
-        col.operator("texture_cycle.cycle_mats", text="Cycle to Diagnostic", icon='NODE_MATERIAL')
-        col.operator("texture_cycle.restore_mats", text="Restore Originals", icon='LOOP_BACK')
+        if not scene.is_cycled:
+            col.operator("texture_cycle.cycle_mats", text="Cycle to Diagnostic", icon='NODE_MATERIAL')
+        else:
+            col.operator("texture_cycle.restore_mats", text="Restore Originals", icon='LOOP_BACK')
 
         layout.separator()
         
         # UI for settings (Toggles)
         box = layout.box()
         box.label(text="Settings", icon='SETTINGS')
-        box.prop(context.scene, "use_gravity") # Built-in placeholder, change soon
+        box.scene(context.scene, "use_gravity") # Built-in placeholder, change soon
