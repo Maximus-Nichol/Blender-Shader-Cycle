@@ -1,13 +1,13 @@
 import bpy
 
-def get_node_colour(node):
+def get_node_color(node):
     # 1. Check for Principled BSDF
-    if "Base Colour" in node.inputs:
-        return node.inputs["Base Colour"].default_value[:]
+    if "Base Color" in node.inputs:
+        return node.inputs["Base Color"].default_value[:]
     
     # 2. Check for 'Color' (Diffuse BSDF, Emission, etc.)
-    if "Colour" in node.inputs:
-        return node.inputs["Colour"].default_value[:]
+    if "Color" in node.inputs:
+        return node.inputs["Color"].default_value[:]
         
     # 3. Fallback to viewport color
     return (0.8, 0.8, 0.8, 1.0)
