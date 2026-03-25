@@ -1,15 +1,16 @@
 import bpy
 
 def get_node_color(node):
-    # 1. Check for Principled BSDF
-    if "Base Color" in node.inputs:
+    # Specifically handles the most common shader
+    if node.type == 'BSDF_PRINCIPLED':
         return node.inputs["Base Color"].default_value[:]
     
-    # 2. Check for 'Color' (Diffuse BSDF, Emission, etc.)
-    if "Color" in node.inputs:
-        return node.inputs["Color"].default_value[:]
-        
-    # 3. Fallback to viewport color
+    # Search for any input with "Color" in the name
+    # Covers Emission, Diffuse, Mix, etc.
+    for input in node.inputs:
+        if "Color" in input.name:
+            return input.default_value[:]
+            
     return (0.8, 0.8, 0.8, 1.0)
 
 def find_output_node(material):
