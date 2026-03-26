@@ -1,4 +1,5 @@
 import bpy
+from . import utils
 
 class OT_CycleTextures(bpy.types.Operator):
     bl_idname = "texture_cycle.cycle_mats"
@@ -84,4 +85,4 @@ class OT_RestoreTextures(bpy.types.Operator):
         props.is_cycled = False
         
         self.report({'INFO'}, "Original materials restored.")
-        return {'FINISHED'}{'FINISHED'}
+        return {'FINISHED'}
