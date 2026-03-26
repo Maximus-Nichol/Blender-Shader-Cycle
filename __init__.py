@@ -8,7 +8,8 @@ bl_info = {
     "category": "Material",
 }
 
-# 1. Import your sub-modules
+import bpy
+
 if "bpy" in locals():
     import importlib
     importlib.reload(properties)
@@ -18,11 +19,8 @@ if "bpy" in locals():
 else:
     from . import properties, operators, ui, utils
 
-import bpy
-
-# 2. List all classes to be registered
-# Typically, you'd collect these from the other files
 classes = (
+    properties.MaterialBackup,
     properties.TextureCycleProperties,
     operators.OT_CycleTextures,
     operators.OT_RestoreTextures,
@@ -33,16 +31,16 @@ def register():
     for cls in classes:
         bpy.utils.register_class(cls)
     
-    # Create a global pointer to our properties on the Scene
     bpy.types.Scene.texture_cycle_data = bpy.props.PointerProperty(
         type=properties.TextureCycleProperties
     )
 
 def unregister():
+
+    del bpy.types.Scene.texture_cycle_data
+    
     for cls in reversed(classes):
         bpy.utils.unregister_class(cls)
-    
-    del bpy.types.Scene.texture_cycle_data
 
 if __name__ == "__main__":
     register()
