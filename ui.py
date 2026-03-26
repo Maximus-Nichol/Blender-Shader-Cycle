@@ -26,4 +26,4 @@ class VIEW3D_PT_TextureCycle(bpy.types.Panel):
         # UI for settings (Toggles)
         box = layout.box()
         box.label(text="Settings", icon='SETTINGS')
-        box.scene(context.scene, "use_gravity") # Built-in placeholder, change soon
+        box.prop(scene, "is_cycled", text="Currently Cycled")
