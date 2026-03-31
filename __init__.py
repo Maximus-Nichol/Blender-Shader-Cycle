@@ -10,14 +10,7 @@ bl_info = {
 
 import bpy
 
-if "bpy" in locals():
-    import importlib
-    importlib.reload(properties)
-    importlib.reload(operators)
-    importlib.reload(ui)
-    importlib.reload(utils)
-else:
-    from . import properties, operators, ui, utils
+from . import properties, operators, ui, utils
 
 classes = (
     properties.MaterialBackup,
