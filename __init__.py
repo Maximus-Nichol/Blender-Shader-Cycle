@@ -4,7 +4,7 @@ bl_info = {
     "version": (0, 1, 0),
     "blender": (3, 6, 0),
     "location": "View3D > Sidebar > Texture Cycle",
-    "description": "Non-destructively cycle materials to a diagnostic shader.",
+    "description": "Non-destructively cycle materials to a specified shader node",
     "category": "Material",
 }
 
@@ -29,7 +29,6 @@ def register():
     )
 
 def unregister():
-
     del bpy.types.Scene.texture_cycle_data
     
     for cls in reversed(classes):

@@ -2,7 +2,7 @@ import bpy
 
 class VIEW3D_PT_TextureCycle(bpy.types.Panel):
     """Creates a Panel in the 3D Viewport Sidebar"""
-    bl_label = "Texture Cycle Manager"
+    bl_label = "Shader Cycle"
     bl_idname = "VIEW3D_PT_texture_cycle"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
@@ -13,7 +13,6 @@ class VIEW3D_PT_TextureCycle(bpy.types.Panel):
         scene = context.scene.texture_cycle_data
         
         col = layout.column(align=True)
-        
         col.label(text="Cycle Actions:")
         
         if not scene.is_cycled:

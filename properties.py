@@ -2,7 +2,7 @@ import bpy
 
 class MaterialBackup(bpy.types.PropertyGroup):
     """
-    A simple data structure to store the state of a material 
+    Stores the state of a material 
     before it was cycled.
     """
     material_name: bpy.props.StringProperty(
@@ -20,10 +20,16 @@ class TextureCycleProperties(bpy.types.PropertyGroup):
     Global settings and state for the Texture Cycle add-on.
     Attached to bpy.types.Scene.
     """
-    is_cycled: bpy.props.BoolProperty(
-        name="Is Cycled",
-        description="Tracks if the scene is currently in diagnostic mode",
-        default=False
+    is_cycled: bpy.props.BoolProperty(default=False)
+    
+    shader_type: bpy.props.EnumProperty(
+        name="Shader Type",
+        description="Choose between presets shader (TODO: or custom)",
+        items=[
+            ('EMISSION', "Emission", "Cycles to a flat Emission shader"),
+            ('TOON', "Toon", "Cycles to a Diffuse Toon shader")
+        ],
+        default='EMISSION'
     )
     
     backup_data: bpy.props.CollectionProperty(
