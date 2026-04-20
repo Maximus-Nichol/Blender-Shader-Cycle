@@ -21,6 +21,12 @@ class TextureCycleProperties(bpy.types.PropertyGroup):
     Attached to bpy.types.Scene.
     """
     is_cycled: bpy.props.BoolProperty(default=False)
+
+    exclude_inactive: bpy.props.BoolProperty(
+        name="Exclude Inactive",
+        description="Only cycle materials that are currently assigned to objects",
+        default=True
+    )
     
     shader_type: bpy.props.EnumProperty(
         name="Shader Type",
