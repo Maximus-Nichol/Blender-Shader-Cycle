@@ -25,4 +25,14 @@ class VIEW3D_PT_TextureCycle(bpy.types.Panel):
         # UI for settings (Toggles)
         box = layout.box()
         box.label(text="Settings", icon='SETTINGS')
-        box.prop(scene, "is_cycled", text="Currently Cycled")
+        settings_col = box.column()
+        
+        # Lock settings if already cycled to maintain data integrity
+        settings_col.enabled = not scene.is_cycled
+        
+        settings_col.prop(scene, "exclude_inactive", text="Exclude Unused Mats")
+        # settings_col.prop(scene, "shader_type", text="Target Shader")
+        
+        # Status indicator
+        if scene.is_cycled:
+            box.label(text="Status: Cycled", icon='CHECKMARK')
