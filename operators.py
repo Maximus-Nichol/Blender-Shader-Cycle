@@ -8,12 +8,14 @@ class OT_CycleTextures(bpy.types.Operator):
     def execute(self, context):
         props = context.scene.texture_cycle_data
         props.backup_data.clear() # Start fresh
-        
+
+        cycled_count = 0
         # Iterate over all materials in the file
         for mat in bpy.data.materials:
+            if props.exclude_inactive and mat.users == 0:
+                continue
             # Filter: Only process materials being used and that use nodes
-            if mat.users > 0 and mat.use_nodes:
-                
+            if mat.users > 0 and mat.use_nodes: 
                 output_node = utils.find_output_node(mat)
                 if not output_node:
                     continue
@@ -50,6 +52,7 @@ class OT_CycleTextures(bpy.types.Operator):
                     new_node.label = "Cycled Pass"
                     
                     mat.node_tree.links.new(new_node.outputs[0], surface_input)
+                    cycled_count += 1
 
         props.is_cycled = True
         self.report({'INFO'}, f"Cycled {len(props.backup_data)} materials.")
